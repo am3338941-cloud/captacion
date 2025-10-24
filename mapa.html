@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa Interactivo de Zinacantepec</title>
+  <link rel="icon" href="imagenes/logo.png">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600&family=Cinzel:wght@600;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --azul: #2a6f97;
+      --azuli: #89c2d9;
+      --verde: #89c2d9;
+      --blanco: #ffffff;
+      --gris-fondo: #f5f5f5;
+    }
+
+    body {
+      font-family: "DM Sans", sans-serif;
+      color: #333;
+      background: var(--gris-fondo);
+      text-align: center;
+      padding: 0;
+      margin: 0;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--azul);
+      padding: 0.8rem 2rem;
+      z-index: 1000;
+      height: 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    header nav a {
+      color: var(--blanco);
+      font-weight: 600;
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    header nav a::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--verde);
+      transition: width 0.3s ease;
+    }
+
+    header nav a:hover {
+      color: #cde8f6;
+    }
+
+    header nav a:hover::after {
+      width: 100%;
+    }
+
+    img {
+      width: 10vw;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.3s ease;
+    }
+
+    .menu-toggle.abierto {
+      transform: rotate(90deg);
+    }
+    h1 {
+      color: #2a6f97;
+      font-family: "Cinzel", serif;
+      margin: 1rem 0;
+    }
+
+    #map {
+      height: 500px;
+      width: 90%;
+      margin: 0 auto 2rem;
+      border-radius: 12px;
+      border: 2px solid #0066cc;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .leaflet-marker-icon {
+      transition: transform 0.3s ease, filter 0.3s ease;
+      cursor: pointer;
+    }
+
+    .leaflet-marker-icon:hover {
+      transform: translateY(-18px) scale(1.2);
+      filter: drop-shadow(0 6px 8px rgba(5, 55, 105, 0.5));
+    }
+
+    .leaflet-marker-icon.bounce {
+      animation: bounce 0.6s ease-in-out;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-20px); }
+      60% { transform: translateY(-10px); }
+    }
+
+    .infoBox {
+      background: white;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      line-height: 1.4;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    @media (max-width: 768px) {
+      header {
+        padding: 0.8rem 1.2rem;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      header nav {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background: var(--azul);
+        width: 100%;
+        padding: 1rem 0;
+        gap: 1rem;
+        text-align: center;
+        animation: slideDown 0.3s ease forwards;
+      }
+
+      header nav.activo {
+        display: flex;
+      }
+
+      header nav a {
+        padding: 0.5rem 0;
+        display: block;
+      }
+
+      @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    }
+
+    @media (min-width: 769px) {
+      header nav {
+        display: flex;
+        position: static;
+        background: none;
+        flex-direction: row;
+      }
+      .menu-toggle {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="menu-toggle" id="menu-toggle">☰</div>
+    <nav id="nav">
+      &nbsp;&nbsp;<a href="index.html#s1">Inicio</a>&nbsp;&nbsp;
+      <a href="index.html#s2">Estadísticas</a>&nbsp;&nbsp;
+      <a href="mapa.html">Mapa</a>&nbsp;&nbsp;
+      <a href="index.html#s3">Problemas</a>&nbsp;&nbsp;
+      <a href="index.html#s4">Soluciones</a>&nbsp;&nbsp;
+      <a href="index.html#s5">Contacto</a>&nbsp;&nbsp;
+      <a href="calculadora.html">Calculadora</a>&nbsp;&nbsp;
+    </nav>
+    <img src="imagenes/logo.png" alt="logo">
+  </header>
+
+  <h1>Mapa de Zinacantepec</h1>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="js/mapa.js"></script>
+</body>
+</html>

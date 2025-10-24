@@ -1,0 +1,16 @@
+{
+  "name": "Proyecto de Captación de Agua",
+  "short_name": "Captación",
+  "description": "Sitio sobre captación de agua de lluvia en Zinacantepec.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2c7a7b",
+  "icons": [
+    {
+      "src": "imagenes/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
